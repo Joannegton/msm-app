@@ -1,4 +1,4 @@
-import { Box, Button, Grid2, InputAdornment, TextField, IconButton } from "@mui/material";
+import { Box, Button, Grid2, InputAdornment, TextField, IconButton, Typography } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
@@ -27,8 +27,10 @@ export const Perfil = (props: Usuario) => {
     };
 
     return (
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} className="p-4 bg-white shadow-md rounded-md flex flex-col gap-2">
-            <h2 className="text-xl font-semibold mb-4">Perfil</h2>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} className="p-6 flex flex-col gap-4">
+            <Typography variant="h6" >
+                Perfil
+            </Typography>
             <Grid2 container spacing={4}>
                 <Grid2  size={{xs: 12, sm: 6}}>
                     <Controller

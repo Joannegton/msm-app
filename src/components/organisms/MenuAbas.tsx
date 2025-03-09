@@ -18,7 +18,7 @@ export const MenuAbas = (props : MenuAbasProps) => {
     };
 
     return (
-        <Box sx={{ width: '100%', typography: 'body1' }}>
+        <Box sx={{width: '100%', border: '1px solid black',  }}>
             <TabContext value={abaNum}>
                 <TabList 
                     onChange={handleChange} 
@@ -28,7 +28,7 @@ export const MenuAbas = (props : MenuAbasProps) => {
                 >
                     {props.abas.map((aba, index) => (
                         <Tab 
-                            className='flex-1' // flex: 1, Faz com que todas as abas tenham o mesmo tamanho e ocupem a largura total
+                            className='flex-1 rounded-xl'  // flex: 1, Faz com que todas as abas tenham o mesmo tamanho e ocupem a largura total
                             key={index} 
                             label={aba.abaNome} 
                             value={index} 

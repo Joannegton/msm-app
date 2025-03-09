@@ -1,29 +1,49 @@
-import { Home, MessageSquare, Settings } from "lucide-react";
+import { Chat, Home, Logout, Settings, Menu } from "@mui/icons-material";
+import { Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from "@mui/material";
+import { useState } from "react";
+import { motion } from 'framer-motion';
+
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const toggleDrawer = () => setOpen(!open);
+  
+  const menuItens = [
+    {text: "Dashboard", icon: <Home />, link: '/'},
+    {text: "Chat", icon: <Chat />, link: '/chat'},
+    {text: "Configurações", icon: <Settings />, link: 'configuracoes'},
+    {text: "Sair", icon: <Logout />, link: '/sair'},
+  ]
   return (
-    <aside className="w-64 bg-gray-800 text-white h-screen p-4">
-      <h2 className="text-xl font-bold mb-6">🧠 Saúde Mental</h2>
-      <nav>
-        <ul>
-          <li className="mb-2">
-            <Link to='/' className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded">
-              <Home size={20} /> Dashboard
-            </Link>
-          </li>
-          <li className="mb-2">
-              <Link to="/chat" className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded">
-                  <MessageSquare size={20} /> Chat IA
-              </Link>
-          </li>
-          <li className="mb-2">
-              <Link to="/settings" className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded">
-                  <Settings size={20} /> Configurações
-              </Link>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+    <Box>
+      <IconButton aria-label="Menu" onClick={toggleDrawer} sx={{color: 'text.secondary'}} className="fixed top-4 left-4 z-50 p-2 rouded-md">
+        <Menu />
+      </IconButton>
+      <Drawer variant={isMobile ? "temporary" : "permanent"} anchor="left" open={open} onClose={toggleDrawer} className="w-64">
+        <motion.div
+          initial={{x: -100, opacity: 0}}
+          animate={{x: 0, opacity: 1}}
+          transition={{duration: 0.3}}
+          className="p-4 w-65"
+        >
+          <h2 className="text-xl font-bold m-4 text-center">Menu</h2>
+          <List className="overflow-y-auto">
+            {menuItens.map((item, index) => (
+              <ListItem key={index} disablePadding className="hover:bg-gray-100">
+                <ListItemButton component={Link} to={item.link} >
+                  <ListItemIcon sx={{color: 'primary.main'}}>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </motion.div>
+      </Drawer>
+
+    </Box>
   )
 }
